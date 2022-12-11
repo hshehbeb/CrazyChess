@@ -1,0 +1,102 @@
+{
+  "pieces": {
+    "cn_soldier": {
+      "sprite": "cn_soldier_red",
+      "rule": {
+        "type": "straight_move",
+        "args": { "grids_can_move": 1, "dir": ["north"] }
+      }
+    },
+    "cn_horse": {
+      "sprite": "cn_horse_red",
+      "rule": {
+        "type": "horse_move", 
+        "args": { "blockable": true }
+      }
+    },
+    "cn_chariot": {
+      "sprite": "cn_chariot_red",
+      "rule": {
+        "type": "straight_move",
+        "args": { "grids_can_move": 99, "dir": ["north", "south", "east", "west"] }
+      }
+    },
+    "cn_elephant": {
+      "sprite": "cn_elephant_red", 
+      "rule": {
+        "type": "cross_move",
+        "args": { "stride": 2 }
+      }
+    },
+    "cn_advisor": {
+      "sprite": "cn_advisor_red",
+      "rule": {
+        "type": "advisor_move",
+        "args": { 
+          "palace": {
+            "min": {"x": 3, "y": 0}, 
+            "max": {"x": 5, "y": 2}
+          }
+        }
+      }
+    },
+    "cn_general": {
+      "sprite": "cn_general_red",
+      "rule": {
+        "type": "general_move",
+        "args": {
+          "palace": {
+            "min": {"x": 3, "y": 0},
+            "max": {"x": 5, "y": 2}
+          },
+          "dir": ["north", "east", "west"]
+        }
+      }
+    },
+
+    "wd_pawn": {
+      "sprite": "wd_pawn_black",
+      "rule": {
+        "type": "pawn_move",
+        "args": { "dir": ["south", "east", "west"] }
+      }
+    },
+    "wd_king": {
+      "sprite": "wd_king_black",
+      "rule": {
+        "type": "free_move",
+        "args": { "grids_can_move": 1 }
+      }
+    },
+    "wd_queen": {
+      "sprite": "wd_queen_black",
+      "rule": {
+        "type": "free_move",
+        "args": { "grids_can_move": 99 }
+      }
+    }
+  },
+  
+  "players": [
+    { "name": "player1", "type": "human"},
+    { "name": "player2", "type": "ai"}
+  ],
+  
+  "map": { "total_cols": 9, "total_rows":  9, "draw_gizmos": true },
+  
+  "placement": [
+    { "type": "cn_chariot",   "owner": "player1", "pos": {"x": 0, "y": 0} },
+    { "type": "cn_elephant",  "owner": "player1", "pos": {"x": 1, "y": 0} },
+    { "type": "cn_horse",     "owner": "player1", "pos": {"x": 2, "y": 0} },
+    { "type": "cn_advisor",   "owner": "player1", "pos": {"x": 3, "y": 0} },
+    { "type": "cn_general",   "owner": "player1", "pos": {"x": 4, "y": 0} },
+    { "type": "cn_advisor",   "owner": "player1", "pos": {"x": 5, "y": 0} },
+    { "type": "cn_horse",     "owner": "player1", "pos": {"x": 6, "y": 0} },
+    { "type": "cn_elephant",  "owner": "player1", "pos": {"x": 7, "y": 0} },
+    { "type": "cn_chariot",   "owner": "player1", "pos": {"x": 8, "y": 0} },
+    
+    { "type": "wd_pawn",  "owner": "player2", "pos": {"x": 0, "y": 8} },
+    { "type": "wd_queen", "owner": "player2", "pos": {"x": 1, "y": 8} },
+    { "type": "wd_king",  "owner": "player2", "pos": {"x": 2, "y": 8} }
+  ]
+}

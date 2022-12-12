@@ -52,6 +52,12 @@ namespace CrazyChess.Scripts.Models
             return allPieces.Where(piece => piece.Owner.Equals(ownerId));
         }
 
+        public IEnumerable<ChessPiece> GetAllPiecesOwnedByOthers(string ownerId)
+        {
+            var allPieces =_idToPieceMap.Values;
+            return allPieces.Where(piece => piece.Owner != ownerId);
+        }
+
         public void RemovePiece(Vector2Int atPos)
         {
             var toRemove = GetPiece(atPos);

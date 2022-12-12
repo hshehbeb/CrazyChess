@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using CrazyChess.Scripts.DataStructures;
 
 namespace CrazyChess.Scripts.Models
@@ -22,8 +23,27 @@ namespace CrazyChess.Scripts.Models
         {
             var beforeCulling
                 = new MoveStraight(_board, 1, _dir).GetAvailableMoves(piece);
+            
+            var cullOutsidePalace 
+                = _palace.KeepInsidersOnly(beforeCulling);
+            
+            var cullEaten 
+                = AvoidBeingEaten(cullOutsidePalace, piece.Owner);
 
-            return _palace.KeepInsidersOnly(beforeCulling);
+            return cullEaten;
+        }
+
+        private IEnumerable<MoveInfo> AvoidBeingEaten(
+            IEnumerable<MoveInfo> moves, string owner)
+        {
+            var reachableGridsByOthers = _board
+                .GetAllPiecesOwnedByOthers(owner)
+                .SelectMany(piece => piece.GetAvailableMoves())
+                .Select(move => move.ArriveGrid);
+
+            return moves.Where(
+                move => !reachableGridsByOthers.Contains(move.ArriveGrid)
+            );
         }
 
     }

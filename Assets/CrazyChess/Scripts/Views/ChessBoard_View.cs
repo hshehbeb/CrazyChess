@@ -190,10 +190,7 @@ namespace CrazyChess.Scripts.Views
             Gizmos.color = oldColor;
         }
 
-        public List<ChessPiece_View> GetPiecesOwnedBy(HumanPlayer owner)
-        {
-            return piecesAlive.FindAll(piece => piece.owner == owner);
-        }
-        
+        public ChessPiece_View GetPieceById(int id) 
+            => _idToPieceMap[id];
     }
 }

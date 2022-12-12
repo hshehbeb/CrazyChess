@@ -23,26 +23,21 @@ namespace CrazyChess.Scripts
         }
         public ChessBoard_View board;
         public Models.ChessBoard boardModel;
-        public List<Player> Players
-        {
-            get
-            {
-                if (_players.Count is 0)
-                    _players = FindObjectsOfType<Player>().ToList();
-                
-                return _players;
-            }
-            set => _players = value;
-        }
+        public List<Player> Players { get; private set; } = new ();
+
         // PRIVATE
         private int _current;
         private static CrazyChessGame _singleton;
-        private List<Player> _players = new ();
 
         public void Start()
         {
             if (Players.Count is 0)
-                return;
+            {
+                Players = FindObjectsOfType<Player>().ToList();
+
+                var stillEmpty = (Players.Count is 0);
+                if (stillEmpty) return;
+            }
             
             Players[_current].StartItsTurn();
         }

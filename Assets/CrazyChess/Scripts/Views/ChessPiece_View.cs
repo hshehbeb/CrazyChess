@@ -12,7 +12,6 @@ namespace CrazyChess.Scripts.Views
         // PUBLIC
         public int id;
         public UnityEvent<ChessPiece_View> onClick;
-        public Player owner; 
         public SpriteDatabaseEntry[] iconsDatabase;
         // PRIVATE
         [SerializeField] private Image imgIcon;

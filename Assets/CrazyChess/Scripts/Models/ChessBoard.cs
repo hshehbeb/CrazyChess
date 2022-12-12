@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CrazyChess.Scripts.DataStructures;
 using UnityEngine;
 
@@ -44,6 +45,12 @@ namespace CrazyChess.Scripts.Models
         
         public ChessPiece GetPieceById(int id) 
             => _idToPieceMap[id];
+
+        public IEnumerable<ChessPiece> GetAllPiecesOwnedBy(string ownerId)
+        {
+            var allPieces =_idToPieceMap.Values;
+            return allPieces.Where(piece => piece.Owner.Equals(ownerId));
+        }
 
         public void RemovePiece(Vector2Int atPos)
         {

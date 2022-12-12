@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using CrazyChess.Scripts.Models;
 using CrazyChess.Scripts.Views;
 
@@ -9,17 +11,21 @@ namespace CrazyChess.Scripts
             => CrazyChessGame.Singleton.board;
         private ChessBoard Board_Model
             => CrazyChessGame.Singleton.boardModel;
+        private IEnumerable<ChessPiece_View> _ownedPieces;
 
         public override void StartItsTurn()
         {
-            Board_View.GetPiecesOwnedBy(this)
-                .ForEach( RegisterOnClickHandle );
+            _ownedPieces = Board_Model
+                .GetAllPiecesOwnedBy(id)
+                .Select(model => Board_View.GetPieceById(model.Id));
+            
+            RegisterOnClickHandle();
         }
 
-        private void RegisterOnClickHandle(ChessPiece_View piece)
+        private void RegisterOnClickHandle()
         {
-            piece.onClick
-                .AddListener( RenderItsAvailableMoves );
+            foreach (var piece in _ownedPieces)
+                piece.onClick.AddListener( RenderItsAvailableMoves );
         }
 
         private void RenderItsAvailableMoves(ChessPiece_View piece)
@@ -33,14 +39,13 @@ namespace CrazyChess.Scripts
 
         public override void FinishItsTurn()
         {
-            Board_View.GetPiecesOwnedBy(this)
-                .ForEach( UnRegisterOnClickHandle );
+            UnRegisterOnClickHandle();
         }
         
-        private void UnRegisterOnClickHandle(ChessPiece_View piece)
+        private void UnRegisterOnClickHandle()
         {
-            piece.onClick
-                .RemoveListener( RenderItsAvailableMoves );
+            foreach (var piece in _ownedPieces)
+                piece.onClick.RemoveListener( RenderItsAvailableMoves );
         }
         
     }

@@ -14,7 +14,6 @@ namespace CrazyChess.Scripts.Utils
         public TextAsset configJson;
         public CrazyChessGame game;
         public ChessBoard_View board;
-        private Dictionary<string, Player> _nameToPlayerMap = new ();
 
         private void Start()
         {
@@ -63,8 +62,6 @@ namespace CrazyChess.Scripts.Utils
 
                 var view = game.board.SpawnChessPiece(gridPos, model.Id);
                 view.SetIcon((string)conf["pieces"][type]["sprite"]);
-                var itsOwner = _nameToPlayerMap[owner];
-                view.owner = itsOwner;
             }
         }
 
@@ -143,22 +140,17 @@ namespace CrazyChess.Scripts.Utils
                 var player = new GameObject();
                 player.transform.SetParent(game.transform);
                 
-                switch ((string)playerConf["type"])
-                {
-                    case "human":
-                        game.Players.Add(player.AddComponent<HumanPlayer>());
-                        break;
-                    case "ai":
-                        game.Players.Add(player.AddComponent<AiPlayer>());
-                        break;
-
-                    default:
-                        throw new NotSupportedException();
-                }
+                Player comp = (string)playerConf["type"] switch {
+                    "human" => player.AddComponent<HumanPlayer>(),
+                    "ai"    => player.AddComponent<AiPlayer>(),
+                    _ => throw new NotSupportedException()
+                };
                 
-                var itsName = (string)playerConf["name"]; 
-                player.name = itsName;
-                _nameToPlayerMap[itsName] = player.GetComponent<Player>();
+                game.Players.Add(comp);
+                
+                var itsId = (string)playerConf["id"];
+                comp.id = itsId;
+                player.name = itsId;
             }
         }
         

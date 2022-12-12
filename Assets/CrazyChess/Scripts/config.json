@@ -51,14 +51,15 @@
           },
           "dir": ["north", "east", "west"]
         }
-      }
+      },
+      "is_king": true
     },
 
     "wd_pawn": {
       "sprite": "wd_pawn_black",
       "rule": {
         "type": "pawn_move",
-        "args": { "dir": ["south", "east", "west"] }
+        "args": { "dir": ["south"] }
       }
     },
     "wd_king": {
@@ -66,7 +67,8 @@
       "rule": {
         "type": "free_move",
         "args": { "grids_can_move": 1 }
-      }
+      },
+      "is_king": true
     },
     "wd_queen": {
       "sprite": "wd_queen_black",

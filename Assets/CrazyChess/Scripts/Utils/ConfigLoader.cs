@@ -56,8 +56,10 @@ namespace CrazyChess.Scripts.Utils
 
                 var type = (string)pieceConf["type"];
                 var rule = GetCorrespondingRule(conf["pieces"][type]["rule"]);
+                var isKing = conf["pieces"][type].Keys.Contains("is_king") 
+                             && (bool)conf["pieces"][type]["is_king"];
                 var owner = (string)pieceConf["owner"];
-                var model = new ChessPiece(rule, owner);
+                var model = new ChessPiece(rule, owner) { IsKing = isKing };
                 game.boardModel.RegisterPiece(model, gridPos);
 
                 var view = game.board.SpawnChessPiece(gridPos, model.Id);

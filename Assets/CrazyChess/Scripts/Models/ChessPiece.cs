@@ -11,6 +11,7 @@ namespace CrazyChess.Scripts.Models
         public Vector2Int GridPos { get; set; }
         public string Owner { get; }
         public bool HasBeenMoved { get; set; }
+        public bool IsKing { get; set; } // eat it will cause game ends
         private static int _serialNumber;
 
         public ChessPiece(IMoveRule rule, string owner)

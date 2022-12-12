@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CrazyChess.Scripts.DataStructures;
-using LitJson;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,6 +45,12 @@ namespace CrazyChess.Scripts.Views
         [SerializeField] private Transform piecesHolder;
         [SerializeField] private Transform moveTargetHolder;
         [SerializeField] private GameObject moveTargetPrefab;
+        [SerializeField] private GameObject dlgAnnounceCheck;
+
+        private void Start()
+        {
+            dlgAnnounceCheck.SetActive(false);
+        }
 
         public ChessPiece_View SpawnChessPiece(Vector2Int gridPos, int id)
         {
@@ -117,7 +123,17 @@ namespace CrazyChess.Scripts.Views
             
             if (move.AnyPieceEaten())
                 yield return RenderEat(move);
-        } 
+
+            if (move.CauseCheck())
+                yield return RenderAnnounceCheck();
+        }
+
+        private IEnumerator RenderAnnounceCheck()
+        {
+            dlgAnnounceCheck.SetActive(true);
+            yield return new WaitForSeconds(1.5f);
+            dlgAnnounceCheck.SetActive(false);
+        }
 
         public IEnumerator RenderMove(MoveInfo move)
         {

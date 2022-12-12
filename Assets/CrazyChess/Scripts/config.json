@@ -79,7 +79,7 @@
   
   "players": [
     { "name": "player1", "type": "human"},
-    { "name": "player2", "type": "ai"}
+    { "name": "player2", "type": "human"}
   ],
   
   "map": { "total_cols": 9, "total_rows":  9, "draw_gizmos": true },

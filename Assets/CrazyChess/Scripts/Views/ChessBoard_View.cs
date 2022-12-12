@@ -128,7 +128,7 @@ namespace CrazyChess.Scripts.Views
             var velocity = (dst - src) / duration;
 
             var pieceMoving = _idToPieceMap[move.PieceId_Moved].transform;
-            const float approximate = .2f;
+            const float approximate = .3f;
             while (Vector3.Distance(pieceMoving.position, dst) > approximate)
             {
                 pieceMoving.transform.Translate(velocity * Time.deltaTime);

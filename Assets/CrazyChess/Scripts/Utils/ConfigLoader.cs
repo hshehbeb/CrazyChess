@@ -123,13 +123,16 @@ namespace CrazyChess.Scripts.Utils
         
         private Palace GetPalace(JsonData palaceConf)
         {
-            var minCorner = new Vector2Int(); 
-            change
+            var minX = (int)palaceConf["min"]["x"]; 
+            var minY = (int)palaceConf["min"]["y"];
+            var maxX = (int)palaceConf["max"]["x"];
+            var maxY = (int)palaceConf["max"]["y"];
+            
             return new Palace(new RectInt(
                 (int)palaceConf["min"]["x"],
                 (int)palaceConf["min"]["y"],
-                (int)palaceConf["max"]["x"],
-                (int)palaceConf["max"]["y"]
+                Mathf.Abs(maxX - minX),
+                Mathf.Abs(maxY - minY)
             ));
         }
         
